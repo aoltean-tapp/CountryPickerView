@@ -196,7 +196,7 @@ extension CountryPickerViewController {
 extension CountryPickerViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         isSearchMode = false
-        if let text = searchController.searchBar.text, text.count > 0 {
+        if let text = searchController.searchBar.text?.uppercased(), text.count > 0 {
             isSearchMode = true
             searchResults.removeAll()
             
@@ -209,7 +209,7 @@ extension CountryPickerViewController: UISearchResultsUpdating {
                 indexArray = array
             }
 
-            searchResults.append(contentsOf: indexArray.filter({ $0.name.hasPrefix(text) }))
+            searchResults.append(contentsOf: indexArray.filter({ $0.name.uppercased().hasPrefix(text) }))
         }
         tableView.reloadData()
     }
